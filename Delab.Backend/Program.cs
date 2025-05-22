@@ -18,37 +18,37 @@ namespace Delab.Backend
             //builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            //builder.Services.AddSwaggerGen();
-            builder.Services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("V1", new OpenApiInfo { Title = "", Version = "V1" });
-                // Aggiunge la definizione di sicurezza per il Bearer Token
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
-                 {
-                     {
-                         new OpenApiSecurityScheme
-                         {
-                             Reference = new OpenApiReference
-                             {
-                                 Type = ReferenceType.SecurityScheme,
-                                 Id = "Bearer"
-                             },
-                             Scheme = "oauth2",
-                             Name = "Bearer",
-                             In = ParameterLocation.Header,
-                         },
-                         new List<string>()
-                     }
-                 });
-            });
+            builder.Services.AddSwaggerGen();
+            //builder.Services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("V1", new OpenApiInfo { Title = "", Version = "V1" });
+            //    // Aggiunge la definizione di sicurezza per il Bearer Token
+            //    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            //    {
+            //        Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+            //        Name = "Authorization",
+            //        In = ParameterLocation.Header,
+            //        Type = SecuritySchemeType.ApiKey,
+            //        Scheme = "Bearer"
+            //    });
+            //    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+            //     {
+            //         {
+            //             new OpenApiSecurityScheme
+            //             {
+            //                 Reference = new OpenApiReference
+            //                 {
+            //                     Type = ReferenceType.SecurityScheme,
+            //                     Id = "Bearer"
+            //                 },
+            //                 Scheme = "oauth2",
+            //                 Name = "Bearer",
+            //                 In = ParameterLocation.Header,
+            //             },
+            //             new List<string>()
+            //         }
+            //     });
+            //});
 
             builder.Services.AddDbContext<DataContext>( x=> 
                                     x.UseSqlServer("name=DefaultConnection" 
@@ -60,17 +60,17 @@ namespace Delab.Backend
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                //app.UseSwaggerUI();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-                    c.OAuthClientId("swagger-client"); // Client ID registrato sul tuo auth server
-                    c.OAuthUsePkce(); // Abilita PKCE
-                    c.OAuthScopeSeparator(" "); // Separatore degli scope
-                    string url= "https://localhost:7023/swagger/index.html" ;
-                    Task.Run(()=>OpenBrowser(url));
-                });
-            }
+                app.UseSwaggerUI();
+            //    app.UseSwaggerUI(c =>
+            //    {
+            //        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+            //        c.OAuthClientId("swagger-client"); // Client ID registrato sul tuo auth server
+            //        c.OAuthUsePkce(); // Abilita PKCE
+            //        c.OAuthScopeSeparator(" "); // Separatore degli scope
+            //        string url= "https://localhost:7023/swagger/index.html" ;
+            //        Task(()=>OpenBrowser(url));
+            //    });
+            //}
 
             app.UseHttpsRedirection();
 
