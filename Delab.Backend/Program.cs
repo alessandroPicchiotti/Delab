@@ -1,7 +1,15 @@
-
+﻿
 using Delab.AccessData.Data;
+using Delab.Backend.Data;
+using Delab.Common.Helper;
+using Delab.Shared.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 using System.Text.Json.Serialization;
 
 namespace Delab.Backend;
@@ -52,9 +60,60 @@ public class Program
             });
         });
 
+
         builder.Services.AddDbContext<DataContext>( x=> 
                                 x.UseSqlServer("name=DefaultConnection" 
                                 ,option => option.MigrationsAssembly("Delab.Backend")));
+
+        //Para realizar logueo de los usuarios
+        builder.Services.AddIdentity<User, IdentityRole>(cfg =>
+        {
+            //Agregamos Validar Correo para dar de alta al Usuario
+            cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+            cfg.SignIn.RequireConfirmedEmail = true;
+
+            cfg.User.RequireUniqueEmail = true;
+            cfg.Password.RequireDigit = false;
+            cfg.Password.RequiredUniqueChars = 0;
+            cfg.Password.RequireLowercase = false;
+            cfg.Password.RequireNonAlphanumeric = false;
+            cfg.Password.RequireUppercase = false;
+            //Sistema per bloccare login dopo n tentativi
+            cfg.Lockout.MaxFailedAccessAttempts = 3;
+            cfg.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);  //TODO: Tempo di blocco
+            cfg.Lockout.AllowedForNewUsers = true;
+        }).AddDefaultTokenProviders()  
+          .AddEntityFrameworkStores<DataContext>();
+
+        //si occupa di validare i token JWT ricevuti
+        //La configurazione può integrare OAuth2 se collegata a un Authorization Server che emette i token. e questo non lo è
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddCookie()
+        .AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwtKey"]!)),
+            ClockSkew = TimeSpan.Zero //Tolleranda tra differenti orari client server
+        });
+
+        builder.Services.AddTransient<SeedDb>();
+        builder.Services.AddScoped<IUserHelper, UserHelper>();
+        builder.Services.AddScoped<IUtilityTools, UtilityTools>();
+
+        //Inicio de Area de los Serviciios
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowSpecificOrigin", builder =>
+            {
+                builder.WithOrigins("https://localhost:7023") // dominio de tu aplicación Blazor
+                     .AllowAnyHeader()
+                     .AllowAnyMethod()
+                     .WithExposedHeaders(new string[] { "Totalpages", "Counting" });
+            });
+        });
 
         var app = builder.Build();
 
@@ -70,16 +129,18 @@ public class Program
             
         }
 
+        //Llamar el Servicio de CORS
+        app.UseCors("AllowSpecificOrigin");
+
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
 
         app.MapControllers();
 
         app.Run();
     }
-    // M�todo para abrir el navegador
+    // Método para abrir el navegador
     static void OpenBrowser(string url)
     {
         try

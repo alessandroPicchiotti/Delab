@@ -16,4 +16,5 @@ public class Country
     [Display(Name = "Cod Phone")]
     public string ?CodPhone { get; set; } 
     public ICollection<State> ?States { get; set; }
+    public ICollection<Corporation>? Corporations { get; set; }
 }
