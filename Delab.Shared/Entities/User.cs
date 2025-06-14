@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Delab.Shared.Entities;
-
+//TODO : ciao
 public class User : IdentityUser
 {
     [Required(ErrorMessage = "El Campo {0} es Obligatorio")]

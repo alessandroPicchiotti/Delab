@@ -1,7 +1,9 @@
 ﻿
 using Delab.AccessData.Data;
+using Delab.Backend.Class;
 using Delab.Backend.Data;
 using Delab.Common.Helper;
+using Delab.Shared.Class;
 using Delab.Shared.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting.Server;
@@ -99,9 +101,12 @@ public class Program
             ClockSkew = TimeSpan.Zero //Tolleranda tra differenti orari client server
         });
 
+        builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+        builder.Services.Configure<SendGridSettings>(builder.Configuration.GetSection("SendGrid"));
         builder.Services.AddTransient<SeedDb>();
         builder.Services.AddScoped<IUserHelper, UserHelper>();
         builder.Services.AddScoped<IUtilityTools, UtilityTools>();
+        builder.Services.AddScoped<IFileStorage, FileStorage>();
 
         //Inicio de Area de los Serviciios
         builder.Services.AddCors(options =>

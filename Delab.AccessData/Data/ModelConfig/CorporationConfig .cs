@@ -13,6 +13,7 @@ public class CorporationConfig : IEntityTypeConfiguration<Corporation>
 {
     public void Configure(EntityTypeBuilder<Corporation> builder)
     {
+        builder.ToTable("Corporation");
         builder.HasKey(e => e.CorporationId);
         builder.HasIndex(x => new { x.Name, x.NroDocument }).IsUnique();
         builder.Property(e => e.DateStart).HasColumnType("date");
