@@ -23,7 +23,7 @@ namespace Delab.Backend.Controllers
             this._dataContext = dataContext;
             this._fileStorage = fileStorage;
             _appSetting = options.Value;
-            _pahFileStorage = _appSetting.PathImages;
+            _pahFileStorage = Path.Combine( _appSetting.PathImages, "ImgCorporation");
 
         }
         //[HttpGet("coporation-all/{long:id}")]

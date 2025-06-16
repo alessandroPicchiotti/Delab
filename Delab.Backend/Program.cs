@@ -105,6 +105,7 @@ public class Program
         builder.Services.Configure<SendGridSettings>(builder.Configuration.GetSection("SendGrid"));
         builder.Services.AddTransient<SeedDb>();
         builder.Services.AddScoped<IUserHelper, UserHelper>();
+        builder.Services.AddScoped<IEmailHelper, EmailHelper>();
         builder.Services.AddScoped<IUtilityTools, UtilityTools>();
         builder.Services.AddScoped<IFileStorage, FileStorage>();
 

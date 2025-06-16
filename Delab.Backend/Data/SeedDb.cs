@@ -88,7 +88,7 @@ public class SeedDb
                 Active = true,
             };
 
-            await _userHelper.AddUserAsync(user, "admin-123456");
+            await _userHelper.AddUserAsync(user, "admin-123456"); //Password
             await _userHelper.AddUserToRoleAsync(user, userType.ToString());
 
             //Para Confirmar automaticamente el Usuario y activar la cuenta

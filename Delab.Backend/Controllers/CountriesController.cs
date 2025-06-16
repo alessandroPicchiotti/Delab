@@ -1,11 +1,13 @@
 ﻿
 using Delab.AccessData.Data;
 using Delab.Shared.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Delab.Backend.Controllers;
-
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,Roles ="Admin") ]
 [Route("api/countries")]
 [ApiController]
 public class CountriesController : ControllerBase

@@ -14,7 +14,7 @@ public class LoginDTO
     [Required(ErrorMessage = " {0} is required")]
     public string Email { get; set; } = null!;
 
-    [Display(Name = "Clave")]
+    [Display(Name = "Password")]
     [Required(ErrorMessage = "{0} is required")]
     [MinLength(6, ErrorMessage = "{0} it must be at least 6 Caracters ")]
     public string Password { get; set; } = null!;
