@@ -114,7 +114,7 @@ public class Program
         {
             options.AddPolicy("AllowSpecificOrigin", builder =>
             {
-                builder.WithOrigins("https://localhost:7023") // dominio de tu aplicación Blazor
+                builder.WithOrigins("https://localhost:7259") // dominio de tu aplicación Blazor
                      .AllowAnyHeader()
                      .AllowAnyMethod()
                      .WithExposedHeaders(new string[] { "Totalpages", "Counting" });

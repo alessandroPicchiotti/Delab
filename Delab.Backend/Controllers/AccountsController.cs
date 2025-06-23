@@ -31,7 +31,7 @@ public class AccountsController : ControllerBase
         _configuration = configuration;
         _appSetting = appSetting.Value;
     }
-    [HttpPost]
+    [HttpPost("login")]
     public async Task<ActionResult> login([FromBody] LoginDTO model)
     {
         var imgUser = string.Empty;
