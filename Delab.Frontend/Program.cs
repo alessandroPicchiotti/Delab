@@ -1,3 +1,4 @@
+using CurrieTechnologies.Razor.SweetAlert2;
 using Delab.AccessService.Repositories;
 using Delab.Frontend;
 using Delab.Frontend.AuthenticationProviders;
@@ -18,8 +19,8 @@ builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri("http
 builder.Services.AddMudServices();
 
 builder.Services.AddAuthorizationCore();
-
-//builder.Services.AddScoped<HttpResponseHandler>();
+builder.Services.AddSweetAlert2();
+builder.Services.AddScoped<HttpResponseHandler>();
 builder.Services.AddScoped(sp =>
 {
     var jsRuntime = sp.GetRequiredService<IJSRuntime>(); // Obtener el IJSRuntime

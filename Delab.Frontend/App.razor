@@ -3,10 +3,10 @@
 
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
             <Authorizing>
-                <p>Autorizando...</p>
+                <p>Autorizzazione...</p>
             </Authorizing>
             <NotAuthorized>
-                <p>No se encuentra autorizado...</p>
+                <p>Non sei autorizzato...</p>
             </NotAuthorized>
         </AuthorizeRouteView>
 
@@ -14,9 +14,11 @@
     </Found>
     <NotFound>
         <CascadingAuthenticationState>
-            <PageTitle>Recurso no Encontrado</PageTitle>
+            <PageTitle>
+                Risorsa non trovata
+            </PageTitle>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p role="alert">No hay ningun Recurso en esta ruta...</p>
+                <p role="alert">Non ci sono risorse su questo percorso...</p>
             </LayoutView>
         </CascadingAuthenticationState>
     </NotFound>

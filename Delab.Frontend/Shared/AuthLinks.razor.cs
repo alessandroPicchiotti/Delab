@@ -48,8 +48,8 @@ public partial class AuthLinks
 
     private async Task ShowModalLogOut()
     {
-    //    var closeOnEscapeKey = new DialogOptions() { CloseOnEscapeKey = true };
-    //    await _dialogService.ShowAsync<Logout>("Logout", closeOnEscapeKey);
+        var closeOnEscapeKey = new DialogOptions() { CloseOnEscapeKey = true };
+        await _dialogService.ShowAsync<Logout>("Logout", closeOnEscapeKey);
     }
 
     private async Task ShowModalRecoverPassword()
@@ -60,7 +60,7 @@ public partial class AuthLinks
 
     private async Task ShowModalChangePassword()
     {
-    //    var closeOnEscapeKey = new DialogOptions() { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraLarge };
-    //    await _dialogService.ShowAsync<ChangePassword>("Cambiar Clave", closeOnEscapeKey);
+        var closeOnEscapeKey = new DialogOptions() { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraLarge };
+        await _dialogService.ShowAsync<ChangePassword>("Change Password", closeOnEscapeKey);
     }
 }
