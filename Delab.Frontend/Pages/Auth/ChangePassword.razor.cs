@@ -15,7 +15,7 @@ public partial class ChangePassword
     [Inject] private IDialogService DialogService { get; set; } = null!;
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
     [Inject] private IRepository Repository { get; set; } = null!;
-    [Inject] private HttpResponseHandler _responseHandler { get; set; } = null!;
+    [Inject] private HttpResponseHandler responseHandler { get; set; } = null!;
     [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = null!;
 
     private ChangePasswordDTO changePasswordDTO = new();
@@ -27,7 +27,7 @@ public partial class ChangePassword
         var responseHttp = await Repository.PostAsync("/api/accounts/changePassword", changePasswordDTO);
         loading = false;
         // Centralizamos el manejo de errores
-        bool errorHandled = await _responseHandler.HandleErrorAsync(responseHttp);
+        bool errorHandled = await responseHandler.HandleErrorAsync(responseHttp);
         if (errorHandled)
         {
             NavigationManager.NavigateTo("/");

@@ -54,8 +54,8 @@ public partial class AuthLinks
 
     private async Task ShowModalRecoverPassword()
     {
-    //    var closeOnEscapeKey = new DialogOptions() { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraLarge };
-    //    await _dialogService.ShowAsync<RecoverPassword>("Recuperar su Clave", closeOnEscapeKey);
+        var closeOnEscapeKey = new DialogOptions() { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraLarge };
+        await _dialogService.ShowAsync<RecoverPassword>("Recuperar su Clave", closeOnEscapeKey);
     }
 
     private async Task ShowModalChangePassword()

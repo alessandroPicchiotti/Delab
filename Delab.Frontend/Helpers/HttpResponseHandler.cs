@@ -31,46 +31,46 @@ public class HttpResponseHandler
         switch (statusCode)
         {
             case HttpStatusCode.Unauthorized:
-                await _sweetAlert.FireAsync("Error", "Debe Loguearse de Nuevo", SweetAlertIcon.Error);
+                await _sweetAlert.FireAsync("Error", "Devi effettuare nuovamente l'accesso", SweetAlertIcon.Error);
                 await _loginService.LogoutAsync();
                 _navigationManager.NavigateTo($"/");
                 return true;
 
             case HttpStatusCode.Forbidden:
-                await _sweetAlert.FireAsync("Error", "No tienes permisos para acceder a este recurso", SweetAlertIcon.Error);
+                await _sweetAlert.FireAsync("Error", "Non hai l'autorizzazione per accedere a questa risorsa", SweetAlertIcon.Error);
                 return true;
 
             case HttpStatusCode.NotFound:
-                await _sweetAlert.FireAsync("Error", "Registro No Encontrado", SweetAlertIcon.Error);
+                await _sweetAlert.FireAsync("Error", "Registrazione non trovata", SweetAlertIcon.Error);
                 return true;
 
             case HttpStatusCode.InternalServerError:
-                await _sweetAlert.FireAsync("Error", "Error interno del servidor. Intenta más tarde.", SweetAlertIcon.Error);
+                await _sweetAlert.FireAsync("Error", "Errore interno del server. Riprova più tardi.", SweetAlertIcon.Error);
                 return true;
 
             case HttpStatusCode.BadRequest:
                 var badRequestMessage = await responseHttp.GetErrorMessageAsync();
-                await _sweetAlert.FireAsync("Error", $"Solicitud incorrecta: {badRequestMessage}", SweetAlertIcon.Error);
+                await _sweetAlert.FireAsync("Error", $"Bad Request: {badRequestMessage}", SweetAlertIcon.Error);
                 return true;
 
             case HttpStatusCode.GatewayTimeout:
-                await _sweetAlert.FireAsync("Error", "El servidor no respondió a tiempo. Intenta más tarde.", SweetAlertIcon.Error);
+                await _sweetAlert.FireAsync("Error", "Il server non ha risposto in tempo. Riprova più tardi.", SweetAlertIcon.Error);
                 return true;
 
             case HttpStatusCode.ServiceUnavailable:
-                await _sweetAlert.FireAsync("Error", "El servicio no está disponible temporalmente. Intenta más tarde.", SweetAlertIcon.Error);
+                await _sweetAlert.FireAsync("Error", "Il servizio è temporaneamente non disponibile. Riprova più tardi.", SweetAlertIcon.Error);
                 return true;
 
             case HttpStatusCode.BadGateway:
-                await _sweetAlert.FireAsync("Error", "El servidor de respaldo no respondió correctamente. Intenta más tarde.", SweetAlertIcon.Error);
+                await _sweetAlert.FireAsync("Error", "Il server di backup non ha risposto correttamente. Riprova più tardi.", SweetAlertIcon.Error);
                 return true;
 
             case HttpStatusCode.RequestTimeout:
-                await _sweetAlert.FireAsync("Error", "La solicitud ha tardado demasiado tiempo. Intenta más tarde.", SweetAlertIcon.Error);
+                await _sweetAlert.FireAsync("Error", "La richiesta ha richiesto troppo tempo. Riprova più tardi.", SweetAlertIcon.Error);
                 return true;
 
             case HttpStatusCode.UnprocessableEntity:
-                await _sweetAlert.FireAsync("Error", "Los datos enviados no son válidos. Verifica la información ingresada.", SweetAlertIcon.Error);
+                await _sweetAlert.FireAsync("Error", "I dati inviati non sono validi. Controlla le informazioni inserite.", SweetAlertIcon.Error);
                 return true;
 
             default:
